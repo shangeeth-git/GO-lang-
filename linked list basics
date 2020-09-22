@@ -1,0 +1,88 @@
+package main
+import "fmt"
+type node struct{
+    data int
+    next *node
+}
+type llist struct{
+    head *node
+}
+func (element *llist) add(value *node){
+    temp:=element.head
+    if element.head==nil{
+        element.head=value
+    }else{
+        for temp.next!=nil{
+            temp=temp.next
+        }
+        temp.next=value
+    }
+}
+func (element *llist) disp(){
+    temp:=element.head
+    for temp!=nil{
+        fmt.Print(temp.data,"->")
+        temp=temp.next
+    }
+    fmt.Println("nil")
+}
+func(element *llist)search (num int)(bool,int){
+    var count int=1
+    if element.head!=nil{
+        temp:=element.head
+        for temp!=nil && temp.data!=num{
+            temp=temp.next
+            count++
+        }
+        if temp!=nil{
+            return true,count
+        }else{
+            return false,0
+        }
+    }
+    return false,0
+}
+func (element *llist) delete (num int){
+    if element.head!=nil{
+        if(element.head.data==num){
+            element.head=element.head.next
+        }else{
+            temp:=element.head
+            for(temp.next!=nil && temp.next.data!=num){
+                temp=temp.next
+            }
+            if(temp.next!=nil){
+                temp.next=temp.next.next
+            }
+        }
+    }
+}
+func main(){
+    list:=llist{}
+    var choice,data1 int
+    i:=1
+    for i==1{
+        fmt.Println("enter choice\n1. insert\n2.search\n3.delete\n4.display\n5.exit")
+        fmt.Scan(&choice)
+        switch choice{
+            case 1: 
+                    fmt.Println("enter new entry")
+                    fmt.Scan(&data1)
+                    temp:=&node{data:data1,next:nil}
+                    list.add(temp)
+            case 2:
+                    fmt.Println("enter search element")
+                    fmt.Scan(&data1)
+                    fmt.Println(list.search(data1))
+            case 3:
+                    fmt.Println("enter delete element")
+                    fmt.Scan(&data1)
+                    list.delete(data1)
+            case 4:
+                    list.disp()
+            case 5:
+                    i=0
+        }
+    }
+    fmt.Println("exit success")
+}
