@@ -1,0 +1,32 @@
+package main
+import "fmt"
+func qsort(arr *[]int,start,end int){
+    if start<end{
+        var pivot= quick(arr,start,end)
+        fmt.Println(start,end,pivot)
+        qsort(arr,start,pivot-1)
+        qsort(arr,pivot+1,end)
+    }
+}
+func quick(arr *[]int,start,end int) (int){
+    pivot:=(*arr)[end]
+    pindex:=start
+    for i:=start;i<end;i++{
+        if((*arr)[i]<pivot){
+            swap(arr,i,pindex)
+            pindex++
+        }
+    }
+    swap(arr,pindex,end)
+    return pindex
+}
+func swap(arr *[]int,a, b int){
+    t:=(*arr)[a]
+    (*arr)[a]=(*arr)[b]
+   (*arr)[b]=t
+}
+func main(){
+    var arr= []int{2,5,8,77,100,56,44,89}
+    qsort(&arr,0,len(arr)-1)
+    fmt.Println(arr)
+}
