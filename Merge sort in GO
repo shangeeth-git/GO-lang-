@@ -1,0 +1,54 @@
+package main
+import "fmt"
+func msort(arr *[]int){
+    length:=len(*arr)
+    if length<2{
+        return
+    }
+    mid:=length/2
+    var (
+        left = make([]int, mid)
+        right = make([]int, length-mid)
+        )    
+    for i:=0;i<length;i++{
+        if(i<mid){
+            left[i]=(*arr)[i]
+        }else{
+            right[i-mid]=(*arr)[i]
+        }
+    }
+    msort(&left)
+    msort(&right)
+    merge(arr,&left,&right)
+}
+func merge(arr ,left, right *[]int){
+    k:=0
+    i:=0
+    j:=0
+    for(len(*left)>i && len(*right)>j){
+        if((*left)[i]<(*right)[j]){
+            (*arr)[k]=(*left)[i]
+            k++
+            i++
+        }else{
+            (*arr)[k]=(*right)[j]
+            k++
+            j++
+        }
+    }
+    for j<len(*right){
+        (*arr)[k]=(*right)[j]
+        k++
+        j++
+    }
+     for i<len(*left){
+        (*arr)[k]=(*left)[i]
+        i++
+        k++
+    }
+}
+func main(){
+    var arr=[]int{2,5,8,77,100,56,44,89}
+    msort(&arr)
+    fmt.Println(arr)
+}
