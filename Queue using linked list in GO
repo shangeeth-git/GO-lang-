@@ -1,0 +1,63 @@
+package main
+import "fmt"
+
+type node struct{
+    data int
+    next *node
+}
+
+type llist struct{
+    head *node
+    tail *node
+}
+func (element *llist) enqueue(value *node){
+    if element.head==nil{
+        element.head=value
+        element.tail=value
+    }else{
+        element.tail.next=value
+        element.tail=element.tail.next
+    }
+
+}
+func (element *llist) dequeue() {
+    temp:=element.head
+    if(temp!=nil){
+        if(element.head==element.tail){
+            element.head=nil
+            element.tail=nil
+        }else{
+        element.head=element.head.nexta
+        }
+    }
+}
+func (element *llist) peek()(int,int){
+    if(element.head!=nil){
+        return element.head.data, element.tail.data
+    }
+    return -1,-1
+}
+func main() {
+    list:=llist{}
+    var choice,data1,i int
+    i=1
+    for i==1{
+        fmt.Println("enter choice\n1. push\n2.pop\n3.peek\n4.exit")
+        fmt.Scan(&choice)
+        switch choice{
+            case 1: 
+                    fmt.Println("enter new entry")
+                    fmt.Scan(&data1)
+                    temp:=&node{data:data1,next:nil}
+                    list.enqueue(temp)
+            case 2:
+                    list.dequeue()
+                    fmt.Println("popped successfully")
+            case 3:
+                    fmt.Println(list.peek())
+            case 4:
+                    i=0
+        }
+    }
+    fmt.Println("exit success")
+}
